@@ -15,6 +15,11 @@
   "author": "raheela khan",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.13.4"
+    "body-parser": "^1.15.0",
+    "compression": "^1.6.1",
+    "ejs": "^2.4.1",
+    "express": "^4.13.4",
+    "mongoose": "^4.4.6",
+    "morgan": "^1.7.0"
   }
 }
