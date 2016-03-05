@@ -1,0 +1,20 @@
+{
+  "name": "nightlife-coordination-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "MongoDB",
+    "Express",
+    "AngularJS",
+    "Node.js"
+  ],
+  "author": "raheela khan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
+}
