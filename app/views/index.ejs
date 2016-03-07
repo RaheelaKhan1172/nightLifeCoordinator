@@ -4,7 +4,10 @@
         <% include ./partials/head %>
     </head>
     <body>
-        <button class="btn btn-primary">Hi</button>
+        <form action='/' method="post">
+            <input type="text" name="search">
+            <input type="submit" value="submit">
+        </form>
         <% include ./partials/links %>
     </body>
 </html>

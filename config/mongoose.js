@@ -1,4 +1,4 @@
-var config = require('./config'),
+var config = require('./configuration'),
     mongoose = require('mongoose');
 
 module.exports = function() {
