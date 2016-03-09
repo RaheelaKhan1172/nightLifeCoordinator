@@ -1,0 +1,16 @@
+<section data-ng-controller="ApiController">
+    <h1> Search </h1>
+    <form data-ng-submit="search()" novalidate>
+        <input type="text" data-ng-model="zip" id="zip" required> 
+        <input type="submit">
+    </form>
+    
+    <div data-ng-repeat="one in result">
+        <h4 data-ng-bind="one.title"></h4>
+        <h4 data-ng-bind="one.description"></h4>
+        <h4 data-ng-bind="one.votes"></h4>
+    </div>
+    <h1 data-ng-show="error">
+        <div data-ng-bind="error"></div>
+    </h1>
+</section>

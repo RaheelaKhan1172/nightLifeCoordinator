@@ -7,7 +7,9 @@ var ResultSchema = new Schema({
         ref: 'Vote'
     },
     title: String,
-    description: String
+    description: String,
+    image: String,
+    url: String
 });
 
 mongoose.model('Result', ResultSchema);

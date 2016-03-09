@@ -4,10 +4,10 @@
         <% include ./partials/head %>
     </head>
     <body>
-        <form action='/' method="post">
-            <input type="text" name="search">
-            <input type="submit" value="submit">
-        </form>
+       
+        <section ng-include="'main/views/main.client.view.html'"></section>
+        
+       
         <% include ./partials/links %>
     </body>
 </html>
