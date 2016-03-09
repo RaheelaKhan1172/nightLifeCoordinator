@@ -9,7 +9,8 @@ var ResultSchema = new Schema({
     title: String,
     description: String,
     image: String,
-    url: String
+    url: String,
+    zip: Number
 });
 
 mongoose.model('Result', ResultSchema);

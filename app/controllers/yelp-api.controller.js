@@ -16,11 +16,29 @@ var client = new Yelp({
 });
     
 var m = 0;
+
+function checkIfExists(data,length) {
+    
+    Result.findOne({title:data.name}, function(err,doc) {
+        if (err) {
+            console.log(err);
+        } else {
+            if (!doc) {
+               var result = new Result({title:data.name, description:data.snippet_text, image:data.image_url, url:data.url,zip:req.body.zip});
+               var vote = new Vote({belongsTo:result._id, count:0});
+               result.votes = vote._id;
+               saveVote(vote,result,length);      
+            } else {
+                checkIfDone(length);
+            }
+        }
+    });
+}
     
 function checkIfDone(length) {
     m+=1;
     if (m === length) {
-        Result.find({}).populate('votes','count').exec(function(err,data) {
+        Result.find({zip:req.body.zip}).populate('votes','count').exec(function(err,data) {
             if (err) {
                 console.log(err);
             } else {
@@ -58,21 +76,8 @@ client.search({term:'bars', location:req.body.zip})
             var length = data[prop].length;
             for (var i = 0; i < data[prop].length; i++) {
                 
-               Result.findOne({title:data[prop][i].name}, function(err,data) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log('the data',data);
-                    if (!data) {
-                        var result = new Result({title:data[prop][i].name, description:data[prop][i].snippet_text, image:data[prop][i].image_url, url:data[prop][i].url});
-                        var vote = new Vote({belongsTo:result._id, count:0});
-                        result.votes = vote._id;
-                        saveVote(vote,result,length);    
-                    } else {
-                        checkIfDone(length);
-                    }
-                }
-            });         
+                checkIfExists(data[prop][i],length);
+
         }; 
       }
     }
