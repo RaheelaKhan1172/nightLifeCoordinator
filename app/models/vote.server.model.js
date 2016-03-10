@@ -6,7 +6,11 @@ var VoteSchema = new Schema({
         type: Schema.ObjectId,
         ref: 'Result'
     },
-    count:Number
+    count:Number,
+    votedOnBy: [{
+      type: Schema.ObjectId,
+        ref: 'User'
+    }]
 });
 
 mongoose.model('Vote',VoteSchema)

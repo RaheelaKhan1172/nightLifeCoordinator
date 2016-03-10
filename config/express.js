@@ -3,7 +3,8 @@ var config = require('./configuration'),
   bodyParser = require('body-parser'),
   compress = require('compression'),
   session = require('express-session'),
-  morgan = require('morgan');
+  morgan = require('morgan'),
+  passport = require('passport');
 
 module.exports = function() {
   var app = express();
@@ -28,7 +29,11 @@ module.exports = function() {
   app.set('views','./app/views');
   app.set('view engine', 'ejs');
   
+  app.use(passport.initialize());
+  app.use(passport.session());
+    
   require('../app/routes/index.server.route.js')(app);
+    
   app.use(express.static('./public'));
 
   return app;

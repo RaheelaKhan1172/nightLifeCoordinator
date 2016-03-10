@@ -2,12 +2,13 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
-    votedOn: [{
-        type:Schema.ObjectId,
-        ref:'Vote'
-    }],
-    email:String,
-    password: String
+    name:String,
+    provider: {
+        type: String,
+        required: 'Provider is requred'
+    },
+    providerId: String,
+    providerData: {}
 });
 
 mongoose.model('User',UserSchema);

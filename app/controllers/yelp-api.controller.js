@@ -3,7 +3,73 @@ var config = require('../../config/configuration'),
     Vote = mongoose.model('Vote'),
     Result = mongoose.model('Result'),
     Yelp = require('yelp');
+
+exports.update = function(req,res) {
     
+    function findResult(doc) {
+        Result.findOne({_id:doc.belongsTo._id}).populate('votes','count').exec(function(err,result) {
+            if (err) {
+                console.log(err);
+            } else {
+                result.votes.count = doc.count;
+                result.save(function(err) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        Result.find({zip:result.zip}).populate('votes','count').exec(function(err,data) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                res.json({data});
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    };
+    
+    function checkIfVoted(doc,comparison,target) {
+        if (comparison == target) {
+            doc.count = (doc.count == 0)? doc.count : doc.count - 1;
+            var ind = doc.votedOnBy.indexOf(target)
+            doc.votedOnBy.splice(ind,1);
+            console.log(ind, 'new dox', doc.votedOnBy);
+        } else {
+            doc.votedOnBy.push(target);
+            doc.count += 1;
+        }
+        doc.save(function(err) {
+            if (err) {
+                console.log(err);
+            } else {
+                findResult(doc);
+            }
+        });
+    };
+    
+    console.log(req.body,'helllllooo');
+    
+    Vote.findOne({_id:req.body.choice}).populate('belongsTo', 'zip').exec(function(err,doc) {
+        console.log('hello the doc',doc, doc.votedOnBy,doc.votedOnBy.length)
+        if (doc.votedOnBy.length) {
+            for (var i = 0; i < doc.votedOnBy.length; i++ ) {
+                console.log(doc);
+                checkIfVoted(doc,doc.votedOnBy[i], req.body.user);
+            }
+        } else {
+            doc.votedOnBy.push(req.body.user);
+            doc.count += 1;
+            doc.save(function(err) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    findResult(doc);    
+                }
+            });
+        }
+    });
+};
 
 exports.search = function(req,res) {
     console.log('request= >' , req.body);

@@ -7,7 +7,9 @@
        
         <section ng-include="'main/views/main.client.view.html'"></section>
         
-       
+        <script type="text/javascript">
+            window.user = <%- user || 'null' %>;
+        </script>
         <% include ./partials/links %>
     </body>
 </html>
