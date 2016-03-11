@@ -1,4 +1,3 @@
-var yelpController = require('./yelp-api.controller');
 
 exports.render = function(req,res) {
   if (req.session.lastVisit) {
