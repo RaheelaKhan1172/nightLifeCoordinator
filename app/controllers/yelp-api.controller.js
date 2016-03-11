@@ -136,7 +136,6 @@ function saveVote(vote,result,length) {
         }
     });
 }
-    console.log('the zip code ', zipCode)
 client.search({term:'bars', location:zipCode})
 .then(function(data) {
     
