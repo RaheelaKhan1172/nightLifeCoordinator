@@ -15,6 +15,6 @@ module.exports = function(app) {
     
     app.get('/oauth/facebook/callback', passport.authenticate('facebook', {
         failureRedirect: '/',
-        successRedirect: '/'  //change later to previous search
+        successRedirect: '/'  
     }));
 };

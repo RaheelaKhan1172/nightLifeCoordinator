@@ -72,8 +72,11 @@ exports.update = function(req,res) {
 };
 
 exports.search = function(req,res) {
-    console.log('request= >' , req.body);
     
+    var zipCode = (req.body.zip === undefined) ? req.session.lastSearch: req.body.zip;
+    
+    req.session.lastSearch = zipCode;
+ 
 var client = new Yelp({
     consumer_key: config.consumerKey,
     consumer_secret: config.consumerSecret,
@@ -90,7 +93,7 @@ function checkIfExists(data,length) {
             console.log(err);
         } else {
             if (!doc) {
-               var result = new Result({title:data.name, description:data.snippet_text, image:data.image_url, url:data.url,zip:req.body.zip});
+               var result = new Result({title:data.name, description:data.snippet_text, image:data.image_url, url:data.url,zip:zipCode});
                var vote = new Vote({belongsTo:result._id, count:0});
                result.votes = vote._id;
                saveVote(vote,result,length);      
@@ -104,7 +107,7 @@ function checkIfExists(data,length) {
 function checkIfDone(length) {
     m+=1;
     if (m === length) {
-        Result.find({zip:req.body.zip}).populate('votes','count').exec(function(err,data) {
+        Result.find({zip:zipCode}).populate('votes','count').exec(function(err,data) {
             if (err) {
                 console.log(err);
             } else {
@@ -133,8 +136,8 @@ function saveVote(vote,result,length) {
         }
     });
 }
-    
-client.search({term:'bars', location:req.body.zip})
+    console.log('the zip code ', zipCode)
+client.search({term:'bars', location:zipCode})
 .then(function(data) {
     
     for (var prop in data) {

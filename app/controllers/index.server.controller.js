@@ -1,3 +1,5 @@
+var yelpController = require('./yelp-api.controller');
+
 exports.render = function(req,res) {
   if (req.session.lastVisit) {
     console.log(req.session.lastVisit);
@@ -7,4 +9,5 @@ exports.render = function(req,res) {
     res.render('index', {
         user: JSON.stringify(req.user)
     });  
+    
 };

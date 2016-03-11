@@ -53,5 +53,11 @@ angular.module('main').controller('ApiController', ['$scope', 'Search', 'Authent
           });
           
       }
+      var init = function() {
+          if ($scope.authentication.user) {
+              $scope.search();
+          };
+      }
       
+      init();
   }]);
