@@ -1,9 +1,16 @@
 <section data-ng-controller="ApiController">
     <div class="container text-center">
+        <!-- main title --> 
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="title">What's for fun tonight?</h1>
+            </div>
+        </div>
+        
         <div class="row">
             <div class="col-lg-10 col-xs-6 text-center">
-                <div class="input-group" ng-keypress="event=$event">
-                <input type="text" class="form-control" data-ng-model="zip" id="zip" placeholder="{{zipCode}}" required>
+                <div class="input-group">
+                <input type="text" class="form-control" data-ng-model="zip" id="zip" placeholder="{{zipCode}}" ng-keypress="event=$event" required>
                     <div ng-if="event.keyCode === 13">
                         <div ng-init="search()"></div>
                     </div>
@@ -12,24 +19,49 @@
                             <span class="glyphicon glyphicon-search"></span> </button>
                     </span>
                 </div>
+            </div>
         </div>
+        
+        <div class="wrapper" id="main">
+            <div class="row">
+                <div ng-repeat="one in result">
+                    <div class="clearfix" ng-if="($index) % 3 === 0"></div>
+                    <div class="col-md-4 data">
+                        <a href="{{one.url}}">
+                            <div ng-if="!one.image">
+                                <img class="img-responsive text-center" src="img/image.jpg">
+                            </div>
+                            <div ng-if="one.image">
+                                <img class='img-responsive text-center' src="{{one.image}}">
+                            </div>
+                        </a>
+                        <!-- inner row + column -->
+                        <div class="row second">
+                            <div class="col-xs-6">
+                                <div ng-show="authentication.user" data-ng-init="btnId=one.votes._id">
+                                    <button type="button" class='btn btn-default' data-ng-attr-id="btnId" data-ng-click="update(btnId)">I'm going!</button>
+                                </div>
+                                <div ng-hide="authentication.user">
+                                    <a href="/oauth/facebook">Sign in to let friends know you're going!</a>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <span class="text"> Total going: {{one.votes.count}}</span>
+                            </div>
+                        </div>
+                        
+                        <!-- title -->
+                        
+                        <a href="{{one.url}}"><h3 data-ng-bind="one.title"></h3></a>
+                        <p data-ng-bind="one.description"></p>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    
-    
-    <div data-ng-repeat="one in result">
-        <h4 data-ng-bind="one.title"></h4>
-        <h4 data-ng-bind="one.description"></h4>
         
-        <div ng-hide="authentication.user"><a href="/oauth/facebook">  <h4 data-ng-bind="one.votes.count"></h4> </a> </div>
-        
-        <div ng-show="authentication.user" data-ng-init="btnId=one.votes._id">
-            <button data-ng-attr-id="btnId" class="button" data-ng-bind="one.votes.count" data-ng-click="update(btnId)"></button>
-        </div>
-       
-        
-    </div>
     <h1 data-ng-show="error">
         <div data-ng-bind="error"></div>
     </h1>
-    </div>
+        </div>
 </section>
