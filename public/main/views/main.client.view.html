@@ -11,7 +11,7 @@
             <div class="col-lg-10 col-xs-6 text-center">
                 <div class="input-group">
                 <input type="text" class="form-control" data-ng-model="zip" id="zip" placeholder="{{zipCode}}" ng-keypress="event=$event" required>
-                    <div ng-if="event.keyCode === 13">
+                    <div ng-if="event.keyCode == 13">
                         <div ng-init="search()"></div>
                     </div>
                     <span class="input-group-btn">
@@ -38,8 +38,15 @@
                         <!-- inner row + column -->
                         <div class="row second">
                             <div class="col-xs-6">
-                                <div ng-show="authentication.user" data-ng-init="btnId=one.votes._id">
-                                    <button type="button" class='btn btn-default' data-ng-attr-id="btnId" data-ng-click="update(btnId)">I'm going!</button>
+                                <div ng-if="authentication.user">
+                                    <div data-ng-repeat="here in one.votes.votedOnBy"> <!-- only happens if not empty -->
+                                          <div ng-if="here == authentication.user._id" data-ng-init="btnId=one.votes._id">
+                                        <button type="button" class='btn btn-default' data-ng-attr-id="btnId" data-ng-click="update(btnId)">I'm not going</button></div>
+                                    </div>
+                                    <div ng-if="!one.votes.votedOnBy.length" data-ng-init="btnId=one.votes._id">
+                                            <button type="button" class='btn btn-default' data-ng-attr-id="btnId" data-ng-click="update(btnId)">I'm going!</button>
+                                        </div>
+                                    
                                 </div>
                                 <div ng-hide="authentication.user">
                                     <a href="/oauth/facebook">Sign in to let friends know you're going!</a>

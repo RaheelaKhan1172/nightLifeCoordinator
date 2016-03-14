@@ -4,8 +4,20 @@ angular.module('main').controller('ApiController', ['$scope', 'Search', 'Authent
       $scope.authentication = Authentication;
       $scope.result = [];
       
+      
+      
+          $scope.checkIfVoted = function(target) {
+            console.log('the target', target,$scope.authentication.user._id);
+              console.log('whats happenenin', $scope.voted);
+            if ($scope.authentication.user._id == target) {
+                console.log('i Happened',$scope.voted)
+                $scope.here = target;
+            }
+          };
+            
           $scope.update = function(btnId) {
           console.log('in here');
+              
           var toSend = {
               user: $scope.authentication.user._id,
               choice: btnId
@@ -23,7 +35,6 @@ angular.module('main').controller('ApiController', ['$scope', 'Search', 'Authent
                     "url": a.url
                 }
             });
-          //    rows();
               console.log($scope.result);
           },function(err) {
             $scope.error = errorResponse.data.message;
@@ -31,7 +42,7 @@ angular.module('main').controller('ApiController', ['$scope', 'Search', 'Authent
           
       };
       
-      $scope.rows = function() {
+     /* $scope.rows = function() {
           
           console.log('hello');
          var html = "<div class='row'>";
@@ -63,7 +74,7 @@ angular.module('main').controller('ApiController', ['$scope', 'Search', 'Authent
           }
            var elem = angular.element(document.querySelector("#main"));
            elem.html(html)
-      };
+      }; */
       
       
       $scope.search = function() {
@@ -88,7 +99,7 @@ angular.module('main').controller('ApiController', ['$scope', 'Search', 'Authent
                       }
                       
                   });
-         //       rows();
+                  console.log(response);
               } else {
                     
               }

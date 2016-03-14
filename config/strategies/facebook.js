@@ -16,7 +16,6 @@ module.exports = function() {
         var providerData = profile._json;
         providerData.accessToken = accessToken;
         providerData.refreshToken = refreshToken;
-        console.log('hum bug heres the data => ', profile)
         var providerUserProfile = {
             name: profile.displayName,
             provider: 'facebook',

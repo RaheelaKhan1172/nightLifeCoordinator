@@ -9,4 +9,5 @@ exports.render = function(req,res) {
         user: JSON.stringify(req.user)
     });  
     
+    
 };

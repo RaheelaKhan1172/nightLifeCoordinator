@@ -16,7 +16,7 @@ exports.update = function(req,res) {
                     if (err) {
                         console.log(err);
                     } else {
-                        Result.find({zip:result.zip}).populate('votes','count').exec(function(err,data) {
+                        Result.find({zip:result.zip}).populate('votes','count  votedOnBy').exec(function(err,data) {
                             if (err) {
                                 console.log(err);
                             } else {
@@ -107,7 +107,7 @@ function checkIfExists(data,length) {
 function checkIfDone(length) {
     m+=1;
     if (m === length) {
-        Result.find({zip:zipCode}).populate('votes','count').exec(function(err,data) {
+        Result.find({zip:zipCode}).populate('votes','count votedOnBy').exec(function(err,data) {
             if (err) {
                 console.log(err);
             } else {
