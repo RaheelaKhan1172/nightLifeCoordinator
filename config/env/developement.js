@@ -1,13 +1,13 @@
-module.exports = {
-  db: 'mongodb://localhost:27017/nightlife',
-  sessionSecret: 'developementSessionSecret',
-  consumerKey: 'wPafL8_3QhDwyjC98HOoug',
-  consumerSecret: '06NuYBdI8ZO5x7UQtA-_IV6D0Dc',
-  token: 'pt-C1nqN_0uy9Ub_ce3MGnN_aj74naQT',
-  tokenSecret: 'zJeiROXBD9wiBherondEhs-qxPw',
+/*module.exports = {
+  db: process.env.db,
+  sessionSecret: process.env.sessionSecret,
+  consumerKey: process.env.consumerKey,
+  consumerSecret: process.env.consumerSecret,
+  token: process.env.token,
+  tokenSecret: process.env.tokenSecret,
   facebook: {
-      clientID: '524262064420403',
-      clientSecret: 'ce12918372c2c9c46c3488d056d88f4a',
-      callbackURL: 'http://localhost:3030/oauth/facebook/callback'
+      clientID: process.env.facebook_clientID,
+      clientSecret: process.env.facebook_clientSecret,
+      callbackURL: process.env.facebook_callbackURL
   }
-};
+};*/

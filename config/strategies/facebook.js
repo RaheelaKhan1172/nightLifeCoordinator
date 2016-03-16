@@ -6,6 +6,8 @@ var passport = require('passport'),
 
 module.exports = function() {
     
+    console.log(config);
+    
     passport.use(new FacebookStrategy({
         clientID: config.facebook.clientID,
         clientSecret: config.facebook.clientSecret,
